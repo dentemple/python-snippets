@@ -1,0 +1,9 @@
+"""
+Handling AS/400 controller objects
+"""
+from pywin32 import win32com.client
+ConnList = win32com.client.Dispatch("PCOMM.autECLConnList")
+Session = win32com.client.Dispatch("PCOMM.autECLSession")
+Metrics = win32com.client.Dispatch("PCOMM.autECLWinMetrics")
+Operator = win32com.client.Dispatch("PCOMM.autECLOIA")
+Presentation = None
