@@ -14,6 +14,29 @@ Should always do absolute imports; if relative imports are required, do (from . 
 Import order: standard library, third-party, your own; subsections should be alphabetical
 """
 
+"""
+Functions
+"""
+# Prefer Exceptions to Returning None
+def divide(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError as e:
+        raise ValueError('Invalid inputs') from e
+        
+# Closures
+# Closure functions can refer to variables from any of the scopes in which they were defined...
+# ... by default, closures can't affect enclosing scopes by assigning variables >> unless the (nonlocal) keyword is used
+# ... this should be avoided, however, by using classes
+
+# Use generatators instead of returning lists
+def index_words_iter(text):
+    if text:
+        yield 0
+    for index, letter in enumerate(text):
+        if letter == ' ':
+            yield index + 1
+
 """Using helper functions.  The following uses the 'empty evaluates to false' magic..."""
 my values = parse_qs('red=5&blue=0&green=', keep_blank_values=True)
 red = int(myvalues.get('red', [''])[0] or 0)
@@ -21,9 +44,33 @@ green = int(myvalues.get('green', [''])[0] or 0)
 opactiy = int(myvalues.get('opactiy', [''])[0] or 0)
 # however, it should be made clearer by turning the above into a function
 
+"""
+Generator expressions to read each line individually
+"""
+it = (len(x) for x in open('my_file.txt'))
+print(next(it))
+print(next(it))
 
+# stacking generators:
+roots = ((x, x**0.5) for x in it)
+print(next(roots))
 
 """
+looping over lists: use enumerate instead of range
+"""
+for i, flavor in enumerate(flavor_list):
+	print('%d: %s' % (i + 1, flavor))
+	
+"""
+zip function: can be used to iterate over multiple iterators in parallel
+"""
+for name, count in zip(names, letters):
+    if count > max_letters:
+        longest_name = name
+        max_letters = count
+
+
+
 Using .format
 """
 def __str__(self):
