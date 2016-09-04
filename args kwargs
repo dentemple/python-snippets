@@ -1,4 +1,49 @@
 """
+Instead of having a fixed number of values, args can be used to clear up the subsequent code
+"""
+def log(message, *values):
+	if not values:
+	    print(message)
+	else:
+	    values_str = ', '.join(str(x) for x in values)
+	    print('%s: %s' % (message, values_str))
+log('My numbers are', 1, 2)
+log('Hi there')
+
+#lists can also be passed in this way
+favorites = [7, 33, 99]
+log('Favorite colors', *favorites)
+
+"""
+Dynamic arguments should be defaulted to None, then documented in the docstring
+"""
+def log(message, when=None):
+    """Log a message with a timestamp.
+    
+    Args:
+        message: Message to print.
+        when: datetime of when the message occurred.
+            Defaults to the present time.
+    """
+    when = datetime.now() if when is None else when
+    print('...')
+
+def decode(data, default=None):
+    """Load JSON data from a string.
+    Args:
+        data: JSON data to decode.
+        default: Value to return if decoding fails.
+            Defaults to an empty dictionary
+    """
+    if default is None:
+        default = {}
+    try:
+        return json.loads(data)
+    except ValueError:
+        return default
+
+
+"""
 >>> my_string = “Hello, my name is {name} and I live in {state}.”
 >>> my_dict = {‘name’: “Kenneth”, ‘state’: “Oregon”}
 >>> my_string.format(**my_dict)
