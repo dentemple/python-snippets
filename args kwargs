@@ -1,0 +1,10 @@
+"""
+>>> my_string = “Hello, my name is {name} and I live in {state}.”
+>>> my_dict = {‘name’: “Kenneth”, ‘state’: “Oregon”}
+>>> my_string.format(**my_dict)
+“Hello, my name is Kenneth and I live in Oregon.”
+"""
+def __init__(self, **kwargs):
+
+	for key, value in kwargs.items():
+		setattr(self, key, value)
